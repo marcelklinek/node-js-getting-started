@@ -2,18 +2,23 @@ import http from 'http';
 
 export class HttpServer {
 
-    constructor(handlerFn, port) {
+    constructor(handlerFn, port, host) {
         this.handlerFn = handlerFn;
         this.port = port;
+        this.host = host;
     }
     
     init() {
-        return http.createServer(this.handlerFn).listen(this.port);
+        if (this.host) {
+            return http.createServer(this.handlerFn).listen(this.port, this.host);
+        } else {
+            return http.createServer(this.handlerFn).listen(this.port);
+        }
     }
 }
 
 export function requestHandler(req, res) {
-    if (req.method == 'GET') {
+    if (req.method == 'GET' && req.url == '/getAd') {
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.write('Text Ad');
     } else {

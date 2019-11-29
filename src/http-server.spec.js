@@ -34,7 +34,7 @@ describe('HTTP server: ', () => {
             createServerStub = sandboxHandler.stub(http, 'createServer').returns({
                 listen: serverListenSpy
             });
-            httpServer = new HttpServer(expectedHandlerFn, expectedHost, expectedPort);
+            httpServer = new HttpServer(expectedHandlerFn, expectedPort, expectedHost);
             httpServer.init();
         });
 
@@ -59,7 +59,7 @@ describe('HTTP server: ', () => {
     describe('when request is sent to the server', () => {
 
         beforeEach(() => {
-            httpServer = new HttpServer(requestHandler, expectedHost, expectedPort);
+            httpServer = new HttpServer(requestHandler, expectedPort, expectedHost);
             app = httpServer.init();
         });
 
