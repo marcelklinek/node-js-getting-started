@@ -2,14 +2,13 @@ import http from 'http';
 
 export class HttpServer {
 
-    constructor(handlerFn, host, port) {
+    constructor(handlerFn, port) {
         this.handlerFn = handlerFn;
-        this.host = host;
         this.port = port;
     }
     
     init() {
-        return http.createServer(this.handlerFn).listen(this.port, this.host);
+        return http.createServer(this.handlerFn).listen(this.port);
     }
 }
 

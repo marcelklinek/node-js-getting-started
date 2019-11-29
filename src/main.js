@@ -1,10 +1,9 @@
 import { HttpServer, requestHandler } from './http-server';
 
 function startServer() {
-	const host = "127.0.0.1";
-	const port = process.env.PORT || 5000;
+	const port = process.env.PORT;
 
-	new HttpServer(requestHandler, host, port).init();
+	new HttpServer(requestHandler, port).init();
 }	
 // call http://localhost:9001/getAd
 startServer()
