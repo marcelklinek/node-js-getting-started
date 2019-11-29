@@ -1,7 +1,7 @@
 import { HttpServer, requestHandler } from './http-server';
 
 function startServer() {
-	const port = process.env.PORT;
+	const port = process.env.PORT || 9001;
 
 	new HttpServer(requestHandler, port).init();
 }	

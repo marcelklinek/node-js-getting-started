@@ -18,9 +18,13 @@ export class HttpServer {
 }
 
 export function requestHandler(req, res) {
-    if (req.method == 'GET' && req.url == '/getAd') {
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write('Text Ad');
+    if (req.method == 'GET') {
+        if (req.url == '/getAd') {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.write('Text Ad');
+        } else {
+            res.writeHead(404);
+        }
     } else {
         res.writeHead(405);
     }

@@ -83,6 +83,16 @@ describe('HTTP server: ', () => {
             });
         });
 
+        describe('and it is a different GET request', () => {
+            it('should reply with OK', (done) => {
+                const notFoundCode = 404;
+
+                request(app)
+                  .get('/getSomethingElse')
+                  .expect(notFoundCode, done);
+            });
+        });
+
         afterEach(() => {
             app.close();
         });
