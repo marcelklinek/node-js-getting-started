@@ -13,11 +13,8 @@
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous"></script>
   <script>
-    $.get("https://shrouded-headland-00949.herokuapp.com/getAd?publisherId=gibo", {
-      crossDomain: true,
-    }, function(data) {
+    $.get("https://shrouded-headland-00949.herokuapp.com/getAd?publisherId=Marcel", function(data) {
       $("#adSlot").html(data);
-      alert("Load was performed.");
     });
   </script>
 </html>
