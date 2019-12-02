@@ -1,5 +1,6 @@
 import http from 'http';
 import url from 'url';
+import {tag} from './tag';
 
 export class HttpServer {
 
@@ -34,6 +35,9 @@ export function requestHandler(req, res) {
             } else {
                 res.writeHead(422);
             }
+        } else if (parsedUrl.pathname == '/getTag') {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.write(tag);
         } else {
             res.writeHead(404);
         }

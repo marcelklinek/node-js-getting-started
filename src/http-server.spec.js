@@ -3,6 +3,7 @@ import request from 'supertest';
 import { HttpServer, requestHandler } from './http-server';
 import http from 'http';
 import { expect } from 'chai';
+import {tag} from './tag';
 
 describe('HTTP server: ', () => {
 
@@ -56,7 +57,7 @@ describe('HTTP server: ', () => {
         
     });
 
-    describe('when request is sent to the server', () => {
+    describe('when request to getAd is sent to the server', () => {
 
         beforeEach(() => {
             httpServer = new HttpServer(requestHandler, expectedPort, expectedHost);
@@ -123,6 +124,31 @@ describe('HTTP server: ', () => {
                   .get('/getSomethingElse')
                   .expect(notFoundCode, done);
             });
+        });
+
+        afterEach(() => {
+            app.close();
+        });
+    });
+
+    describe('when request to getTag is sent to the server', () => {
+        
+        beforeEach(() => {
+            httpServer = new HttpServer(requestHandler, expectedPort, expectedHost);
+            app = httpServer.init();
+        });
+
+        it('should return the code to embed in the page to call the ad server', (done) => {
+            const okCode = 200;
+                
+            request(app)
+                .get('/getTag')
+                .expect(okCode)
+                .end((err, res) => {
+                    if (err) return done(err);
+                    expect(res.text).to.equal(tag);
+                    done();
+                });
         });
 
         afterEach(() => {
