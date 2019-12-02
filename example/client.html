@@ -9,9 +9,15 @@
   <body>
     <div id="adSlot"></div>
   </body>
-  <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
-  <script></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+  <script>
+    $.get("https://shrouded-headland-00949.herokuapp.com/getAd?publisherId=gibo", {
+      crossDomain: true,
+    }, function(data) {
+      $("#adSlot").html(data);
+      alert("Load was performed.");
+    });
+  </script>
 </html>

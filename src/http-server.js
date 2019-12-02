@@ -20,6 +20,7 @@ export class HttpServer {
 
 export function requestHandler(req, res) {
     const parsedUrl = url.parse(req.url,true);
+    res.setHeader("Access-Control-Allow-Origin", "*");
 
     if (req.method == 'GET') {
         const publisherId = parsedUrl.query.publisherId;

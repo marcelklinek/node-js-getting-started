@@ -63,6 +63,20 @@ describe('HTTP server: ', () => {
             app = httpServer.init();
         });
 
+        it('should send cors headers in the response', (done) => {
+            const errorCode = 404;
+
+            request(app)
+                .get('/')
+                .expect(errorCode)
+                .end((err, res) => {
+                    if (err) return done(err);
+                    const expectedHeader = {"access-control-allow-origin": "*"};
+                    expect(res.header).to.include(expectedHeader);
+                    done();
+                });
+        });
+
         describe('and it is a POST request', () => {
             it('should reply with Method Not Allowed error', (done) => {
                 const errorCode = 405;
