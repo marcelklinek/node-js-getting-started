@@ -74,12 +74,30 @@ describe('HTTP server: ', () => {
         });
 
         describe('and it is a GET request for an ad', () => {
-            it('should reply with OK', (done) => {
-                const okCode = 200;
 
+            describe('when the request does not contain publisher id', () => {
+                it('should respond with unprocessable entity error', (done) => {
+                    const errorCode = 422;
+
+                    request(app)
+                      .get('/getAd')
+                      .expect(errorCode, done);
+                });
+            });
+
+            it('should reply with OK and return an ad for the requested publisher', (done) => {
+                const okCode = 200;
+                
                 request(app)
                   .get('/getAd')
-                  .expect(okCode, done);
+                  .query({ publisherId: 'MyPublisherId' })
+                  .expect(okCode)
+                  .end((err, res) => {
+                    if (err) return done(err);
+                    const expectedMessage = `Publisher with id MyPublisherId requested an ad`
+                    expect(res.text).to.equal(expectedMessage);
+                    done();
+                  });
             });
         });
 

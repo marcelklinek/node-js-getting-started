@@ -1,4 +1,5 @@
 import http from 'http';
+import url from 'url';
 
 export class HttpServer {
 
@@ -18,10 +19,20 @@ export class HttpServer {
 }
 
 export function requestHandler(req, res) {
+    const parsedUrl = url.parse(req.url,true);
+
     if (req.method == 'GET') {
-        if (req.url == '/getAd') {
-            res.writeHead(200, {'Content-Type': 'text/html'});
-            res.write('Text Ad');
+        const publisherId = parsedUrl.query.publisherId;
+        const containsPublisherId = publisherId ? true : false;
+
+        if (parsedUrl.pathname == '/getAd') { 
+            if (containsPublisherId) {
+                const msg = `Publisher with id ${publisherId} requested an ad`;
+                res.writeHead(200, {'Content-Type': 'text/html'});
+                res.write(msg);
+            } else {
+                res.writeHead(422);
+            }
         } else {
             res.writeHead(404);
         }
