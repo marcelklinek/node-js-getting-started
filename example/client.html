@@ -5,16 +5,52 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Example page</title>
+    <style>
+      .headingAd {
+        border: 1px red solid;
+        height: 18px;
+      }
+    </style>
   </head>
   <body>
-    <div id="adSlot"></div>
+    <h1>Example Webpage to display Ads</h1>
+    <h4>your ad will be served in the red container below</h4>
+    <div id="adSlot" class="headingAd"></div>
+    <div class="content">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus placerat nunc id euismod sodales. Ut quis lacus
+        iaculis, commodo nibh vel, dictum odio. Nunc eu bibendum tortor, id pellentesque lorem. Praesent porta varius vehicula.
+        Vivamus vel nisl ultrices, tristique orci eget, interdum arcu. Etiam ac lobortis massa, nec feugiat risus. Curabitur
+        feugiat dapibus cursus. Curabitur vitae pulvinar nisi. Praesent scelerisque auctor hendrerit. Praesent id ex diam.
+        Pellentesque a risus quis ante facilisis cursus eget nec erat. Pellentesque tellus orci, fermentum in pharetra non,
+        vestibulum sit amet nibh.
+      </p>
+      <p>
+        Aptent vestibulum ultrices ut, urna convallis urna rhoncus. Aliquam odio pharetra facilisi nec, semper scelerisque
+        ornare posuere at. Platea cubilia interdum eros. Suscipit pulvinar condimentum dictum lorem. Neque ante gravida nibh
+        ornare cras congue diam varius. Fames platea aenean magna molestie metus luctus faucibus blandit malesuada
+        sollicitudin sit? Facilisi sodales nisi nibh. Taciti neque risus dui velit iaculis sociis aenean. Urna magnis urna
+        ligula nullam nisl odio. Diam metus tincidunt cubilia dui, platea conubia eget lobortis volutpat fermentum. Ornare
+        nunc proin imperdiet litora quisque purus habitant taciti consequat pulvinar. Cum.
+      </p>
+      <p>
+        Ad libero sapien congue sagittis ligula aliquet semper commodo? Euismod, porttitor cubilia primis! Dictum himenaeos
+        potenti quam condimentum parturient posuere turpis. Nostra malesuada quisque sagittis ullamcorper convallis senectus
+        porta in vel condimentum eros. Erat curabitur elit odio nunc cras. Cum sociosqu felis risus in enim iaculis
+        suspendisse purus. Penatibus sapien aenean porttitor dui. Ultricies leo semper nunc amet sed et iaculis condimentum
+        massa lacus rutrum. Elit adipiscing quam elementum?
+      </p>
+    </div>
   </body>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous">
+  </script>
   <script>
-    $.get("https://shrouded-headland-00949.herokuapp.com/getAd?publisherId=Marcel", function(data) {
-      $("#adSlot").html(data);
+    $( document ).ready(function() {
+      $.get("https://shrouded-headland-00949.herokuapp.com/getAd?publisherId=Marcel", function(data) {
+        $("#adSlot").html(data);
+      });
     });
   </script>
 </html>
