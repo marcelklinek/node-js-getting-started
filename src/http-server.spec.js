@@ -1,8 +1,8 @@
-import { createSandbox } from 'sinon';
+import {createSandbox} from 'sinon';
 import request from 'supertest';
-import { HttpServer, requestHandler } from './http-server';
+import {HttpServer} from './http-server';
 import http from 'http';
-import { expect } from 'chai';
+import {expect} from 'chai';
 import {tag} from './tag';
 
 describe('HTTP server: ', () => {
@@ -14,7 +14,7 @@ describe('HTTP server: ', () => {
     var app;
     
     const expectedHost = "127.0.0.1"
-    const expectedPort = 9001;
+    const expectedPort = 3000;
 
     beforeEach(() => {
         sandboxHandler = createSandbox();
@@ -47,10 +47,6 @@ describe('HTTP server: ', () => {
             expect(serverListenSpy).to.be.calledWith(expectedPort, expectedHost);
         });
 
-        it('should configure it to listen on correct port', ()=>{
-            expect(serverListenSpy).to.be.calledWith(expectedPort);
-        });
-
         it('should bind the correct handler in the creation of the server', () => {
             expect(createServerStub).to.be.calledOnceWith(expectedHandlerFn);
         });
@@ -60,7 +56,7 @@ describe('HTTP server: ', () => {
     describe('when request to getAd is sent to the server', () => {
 
         beforeEach(() => {
-            httpServer = new HttpServer(requestHandler, expectedPort, expectedHost);
+            httpServer = new HttpServer(HttpServer.requestHandler, expectedPort, expectedHost);
             app = httpServer.init();
         });
 
@@ -100,7 +96,7 @@ describe('HTTP server: ', () => {
                 });
             });
 
-            it('should reply with OK and return an ad for the requested publisher', (done) => {
+            it('should reply with OK and return an ad for the requested publisher if the publisherId query string is passed', (done) => {
                 const okCode = 200;
                 
                 request(app)
@@ -134,7 +130,7 @@ describe('HTTP server: ', () => {
     describe('when request to getTag is sent to the server', () => {
         
         beforeEach(() => {
-            httpServer = new HttpServer(requestHandler, expectedPort, expectedHost);
+            httpServer = new HttpServer(HttpServer.requestHandler, expectedPort, expectedHost);
             app = httpServer.init();
         });
 

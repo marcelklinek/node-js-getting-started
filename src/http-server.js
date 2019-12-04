@@ -4,46 +4,46 @@ import {tag} from './tag';
 
 export class HttpServer {
 
-	constructor(handlerFunction, port, host) {
-		this.handlerFunction = handlerFunction;
-		this.port = port;
-		this.host = host;
-	}
+    constructor(handlerFn, port, host) {
+        this.handlerFn = handlerFn;
+        this.port = port;
+        this.host = host;
+    }
+    
+    init() {
+        if (this.host) {
+            return http.createServer(this.handlerFn).listen(this.port, this.host);
+        } else {
+            return http.createServer(this.handlerFn).listen(this.port);
+        }
+    }
 
-	init() {
-		const myServer = http.createServer(this.handlerFunction);
-		return myServer.listen(this.port, this.host);
-	}
-
-}
-
-export function requestHandler(req, res) {
-	const parsedUrl = url.parse(req.url, true);
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	if (req.method == 'GET') {
-		if (parsedUrl.pathname == '/getAd') {
-			const publisherId = parsedUrl.query.publisherId;
-			if (publisherId == null) {
-				res.writeHead(422, {'Content-Type': 'text/html'});
-				res.end();
-				return;
-			}
-			const msg = `Publisher with id ${publisherId} requested an ad`
-			res.writeHead(200, {'Content-Type': 'text/html'});
-			res.write(msg);
-			res.end();
-		} else if (parsedUrl.pathname == '/getTag') {
-			res.writeHead(200, {'Content-Type': 'text/html'});
-			res.write(tag);
-			res.end();
-		}
-		else {
-			res.writeHead(404, {'Content-Type': 'text/html'})
-		}
-	} else {
-		res.writeHead(405, {'Content-Type': 'text/html'});
-		res.end();
-	}
-	res.end();
-
+    static requestHandler(req, res) {
+        const parsedUrl = url.parse(req.url, true);
+        res.setHeader('Access-Control-Allow-Origin', '*');
+    
+        if (req.method == 'GET') {
+            const publisherId = parsedUrl.query.publisherId;
+            const containsPublisherId = publisherId ? true : false;
+    
+            if (parsedUrl.pathname == '/getAd') { 
+                if (containsPublisherId) {
+                    const msg = `Publisher with id ${publisherId} requested an ad`;
+                    res.writeHead(200, {'Content-Type': 'text/html'});
+                    res.write(msg);
+                } else {
+                    res.writeHead(422);
+                }
+            } else if (parsedUrl.pathname == '/getTag') {
+                res.writeHead(200, {'Content-Type': 'text/html'});
+                res.write(tag);
+            } else {
+                res.writeHead(404);
+            }
+        } else {
+            res.writeHead(405);
+        }
+        
+        res.end();
+    }
 }
