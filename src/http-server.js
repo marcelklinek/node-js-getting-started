@@ -4,10 +4,9 @@ import {tag} from './tag';
 
 export class HttpServer {
 
-    constructor(handlerFn, port, host) {
+    constructor(handlerFn, port) {
         this.handlerFn = handlerFn;
         this.port = port;
-        this.host = host;
     }
     
     init() {
