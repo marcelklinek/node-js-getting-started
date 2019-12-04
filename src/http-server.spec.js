@@ -13,7 +13,6 @@ describe('HTTP server: ', () => {
     var serverListenSpy;
     var app;
     
-    const expectedHost = "127.0.0.1"
     const expectedPort = 3000;
 
     beforeEach(() => {
@@ -35,7 +34,7 @@ describe('HTTP server: ', () => {
             createServerStub = sandboxHandler.stub(http, 'createServer').returns({
                 listen: serverListenSpy
             });
-            httpServer = new HttpServer(expectedHandlerFn, expectedPort, expectedHost);
+            httpServer = new HttpServer(expectedHandlerFn, expectedPort);
             httpServer.init();
         });
 
@@ -43,8 +42,8 @@ describe('HTTP server: ', () => {
             expect(createServerStub).to.have.been.called;
         });
 
-        it('should configure it to listen on correct host and port', ()=>{
-            expect(serverListenSpy).to.be.calledWith(expectedPort, expectedHost);
+        it('should configure it to listen on correct port', ()=>{
+            expect(serverListenSpy).to.be.calledWith(expectedPort);
         });
 
         it('should bind the correct handler in the creation of the server', () => {
@@ -56,7 +55,7 @@ describe('HTTP server: ', () => {
     describe('when request to getAd is sent to the server', () => {
 
         beforeEach(() => {
-            httpServer = new HttpServer(HttpServer.requestHandler, expectedPort, expectedHost);
+            httpServer = new HttpServer(HttpServer.requestHandler, expectedPort);
             app = httpServer.init();
         });
 
@@ -130,7 +129,7 @@ describe('HTTP server: ', () => {
     describe('when request to getTag is sent to the server', () => {
         
         beforeEach(() => {
-            httpServer = new HttpServer(HttpServer.requestHandler, expectedPort, expectedHost);
+            httpServer = new HttpServer(HttpServer.requestHandler, expectedPort);
             app = httpServer.init();
         });
 

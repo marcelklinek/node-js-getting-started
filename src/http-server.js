@@ -11,11 +11,7 @@ export class HttpServer {
     }
     
     init() {
-        if (this.host) {
-            return http.createServer(this.handlerFn).listen(this.port, this.host);
-        } else {
-            return http.createServer(this.handlerFn).listen(this.port);
-        }
+        return http.createServer(this.handlerFn).listen(this.port);
     }
 
     static requestHandler(req, res) {
