@@ -131,7 +131,7 @@ describe('HTTP server: ', () => {
         });
     });
 
-    describe.skip('when request to getTag is sent to the server', () => {
+    describe('when request to getTag is sent to the server', () => {
         
         beforeEach(() => {
             httpServer = new HttpServer(requestHandler, expectedPort, expectedHost);
